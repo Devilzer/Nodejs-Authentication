@@ -9,7 +9,7 @@ const { Session } = require("inspector");
 const MongoStore = require('connect-mongo')(session);
 const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy");
-
+const passportGoogle = require("./config/passport-google-oauth2-strategy");
 
 //scss middleware
 app.use(sassMiddleware({
@@ -35,7 +35,7 @@ app.use(
         saveUninitialized:false,
         resave:false,
         cookie:{
-            maxAge : 1000*60*100
+            maxAge : 24*60*60*1000
         },
         store : new MongoStore({
             mongooseConnection:db,

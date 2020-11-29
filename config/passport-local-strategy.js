@@ -36,7 +36,7 @@ passport.deserializeUser((id,done)=>{
             console.log("error in find user passport",err);
         }
         return done(null,user);
-    })
+    });
 });
 
 passport.checkAuthentication = (req,res,next)=>{
