@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/signin.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css"
+    />
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Sign In</title>
 </head>
 <body>
@@ -44,5 +50,43 @@
         </div>
     </div>
     <script src="/scripts/signin.js"></script>
+    <script>
+        <% if(flash.success && flash.success.length>0){%>
+          new Noty({
+            theme:'metroui',
+            text:"<%= flash.success%>",
+            type: 'success',
+            layout:'topRight',
+            timeout: 750
+          }).show();
+      <% } %>
+      <% if(flash.error && flash.error.length>0){%>
+          new Noty({
+            theme:'metroui',
+            text:"<%= flash.error%>",
+            type: 'error',
+            layout:'topRight',
+            timeout: 750
+          }).show();
+      <% } %>
+      <% if(flash.warning && flash.warning.length>0){%>
+          new Noty({
+            theme:'metroui',
+            text:"<%= flash.warning%>",
+            type: 'warning',
+            layout:'topRight',
+            timeout: 750
+          }).show();
+      <% } %>
+      <% if(flash.info && flash.info.length>0){%>
+          new Noty({
+            theme:'metroui',
+            text:"<%= flash.info%>",
+            type: 'info',
+            layout:'topRight',
+            timeout: 750
+          }).show();
+      <% } %>
+    </script>
 </body>
 </html>

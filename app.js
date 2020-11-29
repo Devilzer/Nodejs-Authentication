@@ -11,6 +11,9 @@ const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy");
 const passportGoogle = require("./config/passport-google-oauth2-strategy");
 const passportFacebook = require("./config/passport-facebook-oauth-strategy");
+//connect-flash for showing notifications
+const flash = require("connect-flash");
+const flashMiddleware = require("./config/flash-middleware");
 
 //scss middleware
 app.use(sassMiddleware({
@@ -47,6 +50,8 @@ app.use(
         ),
     })
 );
+app.use(flash());
+app.use(flashMiddleware.setFlash);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);

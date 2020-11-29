@@ -6,11 +6,12 @@ module.exports.createUser = async(req,res)=>{
     user.email = req.body.email;
     user.password = await bcrypt.hash(req.body.password,10);
     await user.save();
-    console.log("user registered!!");
+    req.flash("info","User Registered.");
     return res.redirect("back");
 };
 
 module.exports.signoutUser = (req,res)=>{
     req.logout();
+    req.flash("info","Signed-Out Successfully.");
     return res.redirect("signin");
 };

@@ -12,16 +12,16 @@ async(req,email,password,done)=>{
    if(user){
     const match = await bcrypt.compare(password,user.password);
     if(match){
-        console.log("login successfull");
+        req.flash("success","Signed-In Successfully.");
         return done(null,user);
     }
     else{
-        console.log("Wrong Credentials!!");
+        req.flash("error", "Invalid Username/Password.");
         return done(null,false);
     }
    }
    else{
-       console.log("Wrong Credentials!!");
+        req.flash("error", "Invalid Username/Password.");
        return done(null,false);
    }
 }
