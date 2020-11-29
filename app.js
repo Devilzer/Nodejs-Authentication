@@ -10,6 +10,7 @@ const MongoStore = require('connect-mongo')(session);
 const passport = require("passport");
 const passportLocal = require("./config/passport-local-strategy");
 const passportGoogle = require("./config/passport-google-oauth2-strategy");
+const passportFacebook = require("./config/passport-facebook-oauth-strategy");
 
 //scss middleware
 app.use(sassMiddleware({

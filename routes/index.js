@@ -36,5 +36,13 @@ router.get("/auth/google/callback",passport.authenticate("google",{
     return res.redirect("/");
 });
 
+// facebook oauth
+router.get("/auth/facebook/",passport.authenticate("facebook"));
+
+router.get("/auth/facebook/callback",passport.authenticate("facebook",{failureRedirect:"signin"}),
+(req,res)=>{
+    res.redirect("/");
+});
+
 
 module.exports = router;
