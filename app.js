@@ -3,6 +3,9 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const path = require("path");
 const sassMiddleware = require("node-sass-middleware");
+const db = require("./config/mongoose");
+const session  =  require("express-session");
+const MongoStore = require('connect-mongo')(session);
 
 //scss middleware
 app.use(sassMiddleware({
@@ -13,6 +16,7 @@ app.use(sassMiddleware({
     prefix :"/css"
 }));
 app.use(express.urlencoded());
+
 
 //setting up views
 app.set("view engine","ejs");
