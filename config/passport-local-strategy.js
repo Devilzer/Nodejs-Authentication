@@ -7,12 +7,17 @@ passport.use(new LocalStrategy({
     passReqToCallback:true,
 },
 async(req,email,password,done)=>{
+
    const user = await User.findOne({email:email});
    if(user){
     const match = await bcrypt.compare(password,user.password);
     if(match){
         console.log("login successfull");
         return done(null,user);
+    }
+    else{
+        console.log("Wrong Credentials!!");
+        return done(null,false);
     }
    }
    else{
@@ -21,3 +26,36 @@ async(req,email,password,done)=>{
    }
 }
 ));
+
+passport.serializeUser((user,done)=>{
+    done(null,user.id);
+});
+passport.deserializeUser((id,done)=>{
+    User.findById(id,(err,user)=>{
+        if(err){
+            console.log("error in find user passport",err);
+        }
+        return done(null,user);
+    })
+});
+
+passport.checkAuthentication = (req,res,next)=>{
+    if(req.isAuthenticated()){
+        return next();
+    }
+    return res.redirect("signin");
+};
+passport.setAuthenticatedUser = (req, res, next) => {
+    if (req.isAuthenticated()) {
+      //req.user contains the current signed in user and we are just sending it to the locals for the views
+      res.locals.user = req.user;
+    }
+    next();
+  };
+module.exports = passport;
+passport.checkNotAuthenticated = (req,res,next)=>{
+    if(req.isAuthenticated()){
+        return res.redirect('/');
+    }
+    next();
+}

@@ -7,6 +7,9 @@ const db = require("./config/mongoose");
 const session  =  require("express-session");
 const { Session } = require("inspector");
 const MongoStore = require('connect-mongo')(session);
+const passport = require("passport");
+const passportLocal = require("./config/passport-local-strategy");
+
 
 //scss middleware
 app.use(sassMiddleware({
@@ -27,7 +30,7 @@ app.use(express.static("assets/"));
 //setting session and mongostore for persistent user session
 app.use(
     session({
-        name:"nodeauth",
+        name:"authcookies",
         secret:"randomsecretkey",
         saveUninitialized:false,
         resave:false,
@@ -43,7 +46,9 @@ app.use(
         ),
     })
 );
-
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(passport.setAuthenticatedUser);
 
 //using routes..
 app.use("/",require("./routes/index"));

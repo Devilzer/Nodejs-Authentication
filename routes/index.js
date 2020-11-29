@@ -1,19 +1,30 @@
 const express = require("express");
 const UserController = require("../controllers/userController");
-
+const passport = require("passport");
 const router = express.Router();
 
-router.get("/signin",(req,res)=>{
+router.get("/signin",passport.checkNotAuthenticated,(req,res)=>{
  return res.render("signin");
 });
 router.get("/forgotpswd",(req,res)=>{
     return res.render("forgetpassword");
 });
-router.get("/",(req,res)=>{
+router.get("/",passport.checkAuthentication,(req,res)=>{
     return res.render("home");
 });
+//user sign out route
+router.get("/signout",UserController.signoutUser);
 
+//signup route
 router.post("/signup",UserController.createUser);
-router.post("/signin",UserController.verifyUser);
+
+//signin route for local strategy
+router.post("/signin",passport.authenticate(
+    'local',{
+        failureRedirect:"signin"
+    }
+),(req,res)=>{
+    return res.redirect('/');
+});
 
 module.exports = router;

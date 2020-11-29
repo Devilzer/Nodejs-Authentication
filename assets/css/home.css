@@ -1,0 +1,22 @@
+body {
+  background-color: #e1e8ee; }
+  body .container {
+    color: #e8e8e8;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #30475e;
+    height: 200px;
+    width: 400px;
+    border-radius: 25px;
+    text-align: center; }
+    body .container a {
+      font-size: 40px;
+      text-decoration: none;
+      color: grey;
+      border: 2.5px solid #e8e8e8;
+      transition: ease-in-out 0.25s; }
+    body .container a:hover {
+      border: 1.25px solid #e8e8e8;
+      background-color: #222831; }
