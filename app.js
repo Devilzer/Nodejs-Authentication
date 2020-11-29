@@ -5,6 +5,7 @@ const path = require("path");
 const sassMiddleware = require("node-sass-middleware");
 const db = require("./config/mongoose");
 const session  =  require("express-session");
+const { Session } = require("inspector");
 const MongoStore = require('connect-mongo')(session);
 
 //scss middleware
@@ -22,6 +23,28 @@ app.use(express.urlencoded());
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views/"));
 app.use(express.static("assets/"));
+
+//setting session and mongostore for persistent user session
+app.use(
+    session({
+        name:"nodeauth",
+        secret:"randomsecretkey",
+        saveUninitialized:false,
+        resave:false,
+        cookie:{
+            maxAge : 1000*60*100
+        },
+        store : new MongoStore({
+            mongooseConnection:db,
+            autoRemove:"disabled",
+        },(err)=>{
+            console.log(err || "connect-mongo online");
+        }
+        ),
+    })
+);
+
+
 //using routes..
 app.use("/",require("./routes/index"));
 
