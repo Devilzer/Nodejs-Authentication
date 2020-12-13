@@ -44,5 +44,8 @@ router.get("/auth/facebook/callback",passport.authenticate("facebook",{failureRe
     res.redirect("/");
 });
 
+//forget password
+
+router.post("/sendotp",UserController.sendOtp);
 
 module.exports = router;

@@ -15,3 +15,9 @@ module.exports.signoutUser = (req,res)=>{
     req.flash("info","Signed-Out Successfully.");
     return res.redirect("signin");
 };
+
+//otp function for forgot password.
+module.exports.sendOtp = async(req,res)=>{
+    console.log(req.body);
+    return res.redirect("/forgotpswd");
+};
