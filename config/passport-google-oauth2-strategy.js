@@ -22,7 +22,7 @@ passport.use(new googleStrategy({
         tempUser.email = profile.emails[0].value,
         tempUser.password = crypto.randomBytes(20).toString("hex"),
         await tempUser.save();
-        req.flash("success","Signed-In Successfully.");
+        // req.flash("success","Signed-In Successfully.");
         return done(null,tempUser);
     }
         

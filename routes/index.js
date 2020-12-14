@@ -9,6 +9,12 @@ router.get("/signin",passport.checkNotAuthenticated,(req,res)=>{
 router.get("/forgotpswd",(req,res)=>{
     return res.render("forgetpassword");
 });
+router.get("/verifyotp",(req,res)=>{
+    return res.render("verifyotp");
+});
+router.get("/changepassword",(req,res)=>{
+    return res.render("changepassword");
+})
 router.get("/",passport.checkAuthentication,(req,res)=>{
     return res.render("home");
 });
@@ -47,5 +53,7 @@ router.get("/auth/facebook/callback",passport.authenticate("facebook",{failureRe
 //forget password
 
 router.post("/sendotp",UserController.sendOtp);
+router.post("/verifyotp",UserController.verifyOtp);
+router.post("/changepassword",UserController.changePassword);
 
 module.exports = router;
